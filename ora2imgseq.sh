@@ -66,19 +66,19 @@ while [[ -n $1 ]]; do
 done
 
 if [[ -z "$OUTPUT_DIR" ]]; then
-	OUTPUT_DIR=$(dirname $ORA) # If output directory isn't specified, output to the same directory as the ora
+	OUTPUT_DIR=$(dirname "$ORA") # If output directory isn't specified, output to the same directory as the ora
 fi
 
 OUTPUT_PATH=$OUTPUT_DIR/$IMG_SEQ_DIR
-mkdir -p $OUTPUT_PATH
+mkdir -p "$OUTPUT_PATH"
 
-unzip -j $ORA 'data/*.png' -d $TEMP_DIR
-cd $TEMP_DIR
+unzip -j "$ORA" 'data/*.png' -d "$TEMP_DIR"
+cd "$TEMP_DIR"
 
 if [[ $REVERSE == "True" ]]; then 
-	cat $(ls -r) | ffmpeg -f image2pipe -framerate $IFR -i - -r $OFR $OUTPUT_PATH/Image-%05d.png
+	cat $(ls -r) | ffmpeg -f image2pipe -framerate $IFR -i - -r $OFR "$OUTPUT_PATH"/Image-%05d.png
 else
-	ffmpeg -framerate $IFR -pattern_type glob -i '*.png' -r $OFR $OUTPUT_PATH/Image-%05d.png
+	ffmpeg -framerate $IFR -pattern_type glob -i '*.png' -r $OFR "$OUTPUT_PATH"/Image-%05d.png
 fi
 
 echo "Done! The Image Sequence has been exported to: $OUTPUT_DIR"
