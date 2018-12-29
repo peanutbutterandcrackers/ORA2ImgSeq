@@ -69,7 +69,7 @@ if [[ -z "$OUTPUT_DIR" ]]; then
 	OUTPUT_DIR=$(dirname "$ORA") # If output directory isn't specified, output to the same directory as the ora
 fi
 
-OUTPUT_PATH=$OUTPUT_DIR/$IMG_SEQ_DIR
+OUTPUT_PATH=$(realpath $OUTPUT_DIR)/$IMG_SEQ_DIR
 mkdir -p "$OUTPUT_PATH"
 
 unzip -j "$ORA" 'data/*.png' -d "$TEMP_DIR"
